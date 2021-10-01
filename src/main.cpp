@@ -2,7 +2,7 @@
 #include <iostream>
 #include <map>
 
-#include <src/big_number.h>
+#include <src/big_number/big_number.h>
 
 bool ValidateNumber(const std::string& number) {
     if (number.empty()) {
@@ -78,6 +78,23 @@ int main() {
         }},
         {"-", [](const big_num::BigNumber& num1, const big_num::BigNumber& num2) {
             return (num1 - num2).ToString();
+        }},
+        {"*", [](const big_num::BigNumber& num1, const big_num::BigNumber& num2) {
+            return (num1 * num2).ToString();
+        }},
+        {"/", [](const big_num::BigNumber& num1, const big_num::BigNumber& num2) {
+            try {
+                return (num1 / num2).ToString();
+            } catch (std::overflow_error& error) {
+                return std::string(error.what());
+            }
+        }},
+        {"%", [](const big_num::BigNumber& num1, const big_num::BigNumber& num2) {
+            try {
+                return (num1 % num2).ToString();
+            } catch (std::overflow_error& error) {
+                return std::string(error.what());
+            }
         }},
     };
 

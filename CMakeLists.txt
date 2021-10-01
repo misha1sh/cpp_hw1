@@ -8,8 +8,16 @@ add_subdirectory("${PROJECT_SOURCE_DIR}/deps/googletest" "deps/googletest")
 
 # big num library
 add_library(big_number_lib
-    src/big_number.cpp
-    src/big_number.h)
+        src/big_number/big_number.cpp
+        src/big_number/big_number.h
+        src/big_number/operations/operations.h
+        src/big_number/operations/sum.cpp
+        src/big_number/operations/sub.cpp
+        src/big_number/operations/mul.cpp
+        src/big_number/operations/div.cpp
+        src/big_number/operations/compare.cpp
+        src/big_number/operations/trim.cpp
+        src/big_number/common.h)
 
 # main (console application)
 add_executable(
@@ -26,7 +34,7 @@ enable_testing()
 
 add_executable(
     test_big_number
-    src/tests/test_big_number.cpp
+        src/big_number/tests/test_big_number.cpp
 )
 target_link_libraries(
     test_big_number

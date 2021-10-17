@@ -9,7 +9,7 @@ std::pair<TVector, uint32_t> DivByNumUnchecked(const TVector &left, const uint32
     TVector res(left.size());
 
     TLongValue carry = 0;
-    for (size_t i = left.size() - 1; i != -1; i--) {
+    for (long long i = static_cast<long long>(left.size()) - 1; i != -1; i--) {
         TLongValue cur = left[i] + carry * BASE;
         res[i] = cur / right;
         carry = cur % right;

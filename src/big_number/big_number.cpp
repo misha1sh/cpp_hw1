@@ -1,12 +1,13 @@
 #include "big_number.h"
 
 #include <algorithm>
+#include <charconv>
 #include <iomanip>
 #include <stdexcept>
 
 #include "operations/operations.h"
 
-
+#include "iostream"
 namespace big_num {
 
 using namespace common;
@@ -14,7 +15,20 @@ using namespace common;
 BigNumber::BigNumber() : BigNumber(0) {
 }
 
-BigNumber::BigNumber(const std::string &number) {
+unsigned int StringViewToInt(const std::string_view& str_view) {
+    unsigned int res;
+    auto error = std::from_chars(str_view.begin(), str_view.end(), res);
+    if (error.ec == std::errc::invalid_argument || error.ptr != str_view.end()) {
+        throw std::invalid_argument{"invalid_argument"};
+    }
+    else if (error.ec == std::errc::result_out_of_range) {
+        throw std::out_of_range{"out_of_range"};
+    }
+
+    return res;
+}
+
+BigNumber::BigNumber(const std::string_view &number) {
     long long begin_pos = 0;
     if (number[0] == '-') {
         sign_ = -1;
@@ -25,10 +39,14 @@ BigNumber::BigNumber(const std::string &number) {
 
     for (long long i = number.size(); i > begin_pos; i -= 9) {
         if (i - begin_pos < 9) {
-            values_.push_back(std::stoi(number.substr(begin_pos, i - begin_pos)));
+            values_.push_back(StringViewToInt(number.substr(begin_pos, i - begin_pos)));
         } else {
-            values_.push_back(std::stoi(number.substr(i - 9, 9)));
+            values_.push_back(StringViewToInt(number.substr(i - 9, 9)));
         }
+    }
+
+    if (values_.empty()) {
+        throw std::invalid_argument("No values given");
     }
 
     Trim();
@@ -166,7 +184,7 @@ std::ostream &operator<<(std::ostream &out, const BigNumber &bigNumber) {
             out << "-";
         }
         out << bigNumber.values_.back();
-        for (long long i = bigNumber.values_.size() - 2; i >= 0; i--) {
+        for (long long i = static_cast<long long>(bigNumber.values_.size()) - 2; i >= 0; i--) {
             out << std::setfill('0') << std::setw(9) << bigNumber.values_[i];
         }
     }

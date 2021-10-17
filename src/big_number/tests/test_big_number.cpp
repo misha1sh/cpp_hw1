@@ -1,8 +1,7 @@
 #include <gtest/gtest.h>
 #include <stdexcept>
-#include <sstream>
 
-#include <src/big_number/big_number.h>
+#include <big_number.h>
 
 using big_num::BigNumber;
 

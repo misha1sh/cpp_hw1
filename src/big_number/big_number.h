@@ -12,10 +12,10 @@ namespace big_num {
 class BigNumber {
 public:
     BigNumber();
-    explicit BigNumber(const std::string& number);
-    template <typename Arithmetic,
-              typename = typename std::enable_if<std::is_arithmetic<Arithmetic>::value, Arithmetic>::type>
-    BigNumber(const Arithmetic number) : BigNumber(std::to_string(number)) {}
+    explicit BigNumber(const std::string_view& number);
+    template <typename T,
+              typename = typename std::enable_if<std::is_integral<T>::value, T>::type>
+    BigNumber(const T number) : BigNumber(std::to_string(number)) {}
     BigNumber(const BigNumber& other) = default;
     BigNumber(BigNumber&& other) = default;
     BigNumber& operator=(const BigNumber& bigNumber) = default;

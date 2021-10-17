@@ -1,23 +1,15 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.17)
 project(hw_cpp)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(.)
+include_directories(. )
 add_subdirectory("${PROJECT_SOURCE_DIR}/deps/googletest" "deps/googletest")
 
-# big num library
-add_library(big_number_lib
-        src/big_number/big_number.cpp
-        src/big_number/big_number.h
-        src/big_number/operations/operations.h
-        src/big_number/operations/sum.cpp
-        src/big_number/operations/sub.cpp
-        src/big_number/operations/mul.cpp
-        src/big_number/operations/div.cpp
-        src/big_number/operations/compare.cpp
-        src/big_number/operations/trim.cpp
-        src/big_number/common.h)
+
+add_subdirectory(src/big_number)
+add_subdirectory(src/expression_evaluator)
+
 
 # main (console application)
 add_executable(
@@ -27,20 +19,7 @@ add_executable(
 target_link_libraries(
         main
         big_number_lib
+        expressions_evaluator_lib
 )
 
-# google tests
-enable_testing()
 
-add_executable(
-    test_big_number
-        src/big_number/tests/test_big_number.cpp
-)
-target_link_libraries(
-    test_big_number
-    big_number_lib
-    gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(test_big_number)

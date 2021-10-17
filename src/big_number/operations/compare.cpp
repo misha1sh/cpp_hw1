@@ -15,5 +15,4 @@ TSign CompareUnchecked(const TVector &left, const TVector &right) {
     return 0;
 }
 
-
 }  // namespace operations

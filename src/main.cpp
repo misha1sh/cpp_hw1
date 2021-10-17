@@ -1,13 +1,6 @@
-#include <functional>
 #include <iostream>
-#include <map>
-#include <variant>
-#include <stack>
 
-#include <big_number.h>
 #include <evaluator.h>
-
-
 
 int main() {
     expression_evaluator::ExpressionsEvaluator evaluator;

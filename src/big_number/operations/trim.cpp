@@ -8,4 +8,5 @@ void TrimUnchecked(TVector &values) {
     }
 }
 
-}  // namespace operations
+}  // namespace operation
+// s

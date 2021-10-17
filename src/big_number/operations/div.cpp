@@ -37,5 +37,4 @@ TVector DivUnchecked(const TVector &value, const TVector& divider) {
     return l;
 }
 
-
 }  // namespace operations

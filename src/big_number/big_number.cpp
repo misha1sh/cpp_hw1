@@ -132,7 +132,6 @@ std::string BigNumber::ToString() const {
 }
 
 
-
 void BigNumber::Trim() {
     operations::TrimUnchecked(values_);
 
@@ -149,9 +148,6 @@ BigNumber BigNumber::operator*(const BigNumber& other) const {
         operations::MulUncheckedNaive(values_, other.values_)
     };
 }
-
-
-
 
 
 BigNumber BigNumber::operator/(const BigNumber &other) const {
